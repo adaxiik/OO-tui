@@ -13,11 +13,11 @@ public:
     Element(Vector2 position, Color color);
 
     virtual ~Element();
-    virtual void Render() = 0;
+    virtual void Render() const = 0;
 
     void SetPosition(int x, int y);
     void SetPosition(Vector2 position);
-    Vector2 GetPosition();
+    Vector2 GetPosition() const;
     void SetColor(Color color);
-    Color GetColor();
+    Color GetColor() const;
 };

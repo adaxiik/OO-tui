@@ -4,5 +4,5 @@ class Renderable
 {
 public:
     virtual ~Renderable(){};
-    virtual void Render() = 0;
+    virtual void Render() const = 0;
 };

@@ -19,11 +19,10 @@ Circle::Circle(Vector2 position, int radius, char character, Color color): Pixel
 Circle::~Circle()
 {
 }
-void Circle::Render()
+void Circle::Render() const
 {
-    int x, y;
-    for (y = -radius; y <= radius; y++)
-        for (x = -radius; x <= radius; x++)
+    for (int y = -radius; y <= radius; y++)
+        for (int x = -radius; x <= radius; x++)
             if (x * x + y * y <= radius * radius)
                 OOtui::GetInstance().PutPixel({x + position.x, y + position.y}, {this->character, this->color});
 

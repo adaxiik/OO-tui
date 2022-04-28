@@ -56,7 +56,7 @@ public:
      * @param key to check
      * @return true if key is pressed
      */
-    bool isPressed(int key);
+    bool isPressed(int key) const;
 
     /**
     * 
@@ -64,7 +64,7 @@ public:
     * 
     * @return true if the user pressed the escape key
     */
-    bool shouldExit();
+    bool shouldExit() const;
 
     /**
     * @brief Read the pressed keys 
@@ -78,7 +78,7 @@ public:
      * 
      * @return Time in seconds since Init() was called
      */
-    double GetTime();
+    double GetTime() const;
 
     /**
      * @brief Set Pixel at position 
@@ -104,10 +104,10 @@ public:
      * 
      * @return Frame time in seconds 
      */
-    double GetFrameTime();
+    double GetFrameTime() const;
 
-    int GetWidth();
-    int GetHeight();
+    int GetWidth() const;
+    int GetHeight() const;
 
     ~OOtui();
 };

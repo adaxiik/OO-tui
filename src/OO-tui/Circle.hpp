@@ -12,6 +12,6 @@ public:
     Circle(Vector2 position, int radius, Color color);
     Circle(Vector2 position, int radius, char character, Color color);
     virtual ~Circle();
-    virtual void Render();
+    virtual void Render() const;
 
 };

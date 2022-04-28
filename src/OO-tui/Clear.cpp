@@ -8,7 +8,7 @@ Clear::Clear()
 Clear::~Clear()
 {
 }
-void Clear::Render()
+void Clear::Render() const
 {
     OOtui &tui = OOtui::GetInstance();
     for (int y = 0; y < tui.GetHeight(); y++)

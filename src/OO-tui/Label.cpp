@@ -11,7 +11,7 @@ Label::Label(std::string text, Vector2 position, Color color) : Element(position
     this->text = text;
 }
 
-void Label::Render()
+void Label::Render() const
 {
     for (size_t i = 0; i < this->text.length(); i++)
     {
@@ -29,7 +29,7 @@ void Label::SetText(std::string text)
     this->text = text;
 }
 
-std::string Label::GetText()
+std::string Label::GetText() const
 {
     return this->text;
 }

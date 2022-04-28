@@ -10,8 +10,8 @@ public:
     Pixelable(Vector2 position, Color color);
     Pixelable(Vector2 position, char character);
     Pixelable(Vector2 position, char character, Color color);
-    virtual void Render() = 0;
+    virtual void Render() const = 0;
     virtual ~Pixelable();
     void SetCharacter(char character);
-    char GetCharacter();
+    char GetCharacter() const;
 };

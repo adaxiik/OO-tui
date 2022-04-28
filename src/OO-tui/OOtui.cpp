@@ -73,13 +73,13 @@ OOtui::~OOtui()
 {
 }
 
-bool OOtui::isPressed(int key)
+bool OOtui::isPressed(int key) const
 {
     return keys[key];
 }
 
 
-bool OOtui::shouldExit()
+bool OOtui::shouldExit() const
 {
     return keys[OO_TUI_KEY_ESC];
 }
@@ -97,13 +97,13 @@ void OOtui::ReadKeys()
     }
 }
 
-double OOtui::GetTime()
+double OOtui::GetTime() const
 {
     //return time in seconds
     return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() / 1000.0 - this->startTime;    
 }
 
-bool OOtui::PutPixel(Vector2 position, Pixel pixel)
+bool OOtui::PutPixel(const Vector2 position,const Pixel pixel)
 {
     if (position.x < 0 || position.x >= this->width || position.y < 0 || position.y >= this->height)
         return false;
@@ -112,12 +112,12 @@ bool OOtui::PutPixel(Vector2 position, Pixel pixel)
     return true;
 }
 
-int OOtui::GetWidth()
+int OOtui::GetWidth() const
 {
     return this->width;
 }
 
-int OOtui::GetHeight()
+int OOtui::GetHeight() const
 {
     return this->height;
 }
@@ -127,7 +127,7 @@ void OOtui::AddToRenderQueue(Renderable *r)
     this->renderQueue.push_back(r);
 }
 
-double OOtui::GetFrameTime()
+double OOtui::GetFrameTime() const
 {
     return this->frameTime;
 }

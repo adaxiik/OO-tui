@@ -6,7 +6,7 @@ class Clear : public Renderable
 private:
 public:
     Clear();
-    virtual void Render();
+    virtual void Render() const;
     virtual ~Clear();
 };
 

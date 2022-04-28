@@ -31,7 +31,7 @@ void Pixelable::SetCharacter(char character)
     this->character = character;
 }
 
-char Pixelable::GetCharacter()
+char Pixelable::GetCharacter() const
 {
     return this->character;
 }

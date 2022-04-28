@@ -35,12 +35,12 @@ void Element::SetColor(Color color)
     this->color = color;
 }
 
-Color Element::GetColor()
+Color Element::GetColor() const
 {
     return this->color;
 }
 
-Vector2 Element::GetPosition()
+Vector2 Element::GetPosition() const
 {
     return this->position;
 }
