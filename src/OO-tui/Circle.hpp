@@ -1,8 +1,8 @@
 #pragma once
-#include "Element.hpp"
+#include "Pixelable.hpp"
 #include "OOtui.hpp"
 
-class Circle : public Element
+class Circle : public Pixelable
 {
 private:
     int radius;

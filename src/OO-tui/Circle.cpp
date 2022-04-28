@@ -1,18 +1,18 @@
 #include "Circle.hpp"
 
-Circle::Circle(Vector2 position, int radius): Element(position)
+Circle::Circle(Vector2 position, int radius): Pixelable(position)
 {
     this->radius = radius;
 }
-Circle::Circle(Vector2 position, int radius, char character): Element(position, character)
+Circle::Circle(Vector2 position, int radius, char character): Pixelable(position, character)
 {
     this->radius = radius;
 }
-Circle::Circle(Vector2 position, int radius, Color color): Element(position, color)
+Circle::Circle(Vector2 position, int radius, Color color): Pixelable(position, color)
 {
     this->radius = radius;
 }
-Circle::Circle(Vector2 position, int radius, char character, Color color): Element(position, character, color)
+Circle::Circle(Vector2 position, int radius, char character, Color color): Pixelable(position, character, color)
 {
     this->radius = radius;
 }

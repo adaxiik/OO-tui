@@ -7,6 +7,7 @@
 #define OO_TUI_KEY_ENTER 10
 #define OO_TUI_KEY_BACKSPACE 127
 #define OO_TUI_KEY_TAB 9
+
 enum Color
 {
     BLACK,
@@ -39,6 +40,7 @@ private:
     int width, height;
     bool keys[256];
     double startTime;
+    double frameTime;
 
     std::vector<Renderable *> renderQueue;
 
@@ -89,7 +91,20 @@ public:
      */
     bool PutPixel(Vector2 position, Pixel pixel);
 
+
+    /**
+     * @brief Add a Renderable to the render queue
+     * 
+     * @param r Renderable to add
+     */
     void AddToRenderQueue(Renderable *r);
+
+    /**
+     * @brief Return time in seconds from last Render() call
+     * 
+     * @return Frame time in seconds 
+     */
+    double GetFrameTime();
 
     int GetWidth();
     int GetHeight();

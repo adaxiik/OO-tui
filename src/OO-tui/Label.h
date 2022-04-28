@@ -1,14 +1,15 @@
 #pragma once
 #include <string>
-#include "Renderable.hpp"
+#include "Element.hpp"
 
-class Label : public Renderable
+class Label : public Element
 {
 private:
     std::string text;
 public:
-    Label(int x, int y, std::string text);
-    Label(int x, int y, std::string text, bool visible);
-    virtual void Render();
+    Label(Vector2 position, std::string text);
+    Label(Vector2 position, Color color);
+    Label(Vector2 position, char character, Color color);
+    virtual void Render() = 0;
     virtual ~Label();
 };

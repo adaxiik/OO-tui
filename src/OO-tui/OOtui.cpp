@@ -10,7 +10,6 @@ OOtui *OOtui::instance = nullptr;
 OOtui::OOtui()
 {
 }
-
 OOtui& OOtui::GetInstance()
 {
     if (instance == nullptr)
@@ -43,6 +42,13 @@ void OOtui::Init(int width, int height)
 
 void OOtui::Render()
 {
+    // calculate frame time
+    static double lastTime = 0;
+    double currentTime = this->GetTime();
+    this->frameTime = currentTime - lastTime;
+    lastTime = currentTime;
+
+
     for (auto &&r : this->renderQueue)
         r->Render();
     this->renderQueue.clear();
@@ -116,4 +122,9 @@ int OOtui::GetHeight()
 void OOtui::AddToRenderQueue(Renderable *r)
 {
     this->renderQueue.push_back(r);
+}
+
+double OOtui::GetFrameTime()
+{
+    return this->frameTime;
 }
