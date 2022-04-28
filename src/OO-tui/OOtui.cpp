@@ -1,5 +1,4 @@
 #include "OOtui.hpp"
-
 #include "cstdio"
 #include <fcntl.h>
 #include <cstring>
@@ -24,7 +23,8 @@ void OOtui::Destroy()
     {
         delete[] this->buffer;
         delete instance;
-        system("tput reset"); // reset terminal
+        std::printf("\033[?25h"); // re-enable cursor
+        std::printf("\033[0;0H\033[2J"); // clear screen
         instance = nullptr;
     }
 }
@@ -35,8 +35,10 @@ void OOtui::Init(int width, int height)
     this->height = height;
     this->buffer = new Pixel[width * height];
     this->startTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() / 1000.0;
+    std::printf("\033[?25l"); // hide cursor
+    std::printf("\033[0;0H\033[2J"); // clear screen
     system("stty -icanon -echo"); // disable terminal echo
-    system("tput civis"); // hide cursor
+
     setvbuf(stdout, NULL, _IOFBF, 8*width*height); // enable stdout buffering
 }
 
@@ -52,7 +54,8 @@ void OOtui::Render()
     for (auto &&r : this->renderQueue)
         r->Render();
     this->renderQueue.clear();
-    std::printf("\033[0;0H\033");
+
+    std::printf("\033[0;0H\033"); // move cursor to top left
     for (int y = 0; y < this->height; y++)
     {
         for (int x = 0; x < this->width; x++)

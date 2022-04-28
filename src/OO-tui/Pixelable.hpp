@@ -11,7 +11,7 @@ public:
     Pixelable(Vector2 position, char character);
     Pixelable(Vector2 position, char character, Color color);
     virtual void Render() = 0;
-    ~Pixelable();
+    virtual ~Pixelable();
     void SetCharacter(char character);
     char GetCharacter();
 };

@@ -22,6 +22,10 @@ Pixelable::Pixelable(Vector2 position, char character, Color color) : Element(po
     this->character = character;
 }
 
+Pixelable::~Pixelable()
+{
+}
+
 void Pixelable::SetCharacter(char character)
 {
     this->character = character;

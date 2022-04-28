@@ -3,6 +3,7 @@
 #include "OO-tui/OOtui.hpp"
 #include "OO-tui/Clear.hpp"
 #include "OO-tui/Circle.hpp"
+#include "OO-tui/Label.hpp"
 #include <cmath>
 int main(int argc, char const *argv[])
 {
@@ -24,11 +25,14 @@ int main(int argc, char const *argv[])
         Circle c2({xpos + 5, ypos}, 5, Color::GREEN);
         tui.AddToRenderQueue(&c2);
 
+        Label l("Hello World!", {10, 10},Color::MAGENTA);
+        tui.AddToRenderQueue(&l);
+
         tui.ReadKeys();
         tui.Render();
 
         usleep(66000); // 15 fps
-        //usleep(16000); // 60 fps
+        // usleep(16000); // 60 fps
     }
     tui.Destroy();
 }

@@ -1,5 +1,5 @@
 #include "Circle.hpp"
-
+#include "OOtui.hpp"
 Circle::Circle(Vector2 position, int radius): Pixelable(position)
 {
     this->radius = radius;
