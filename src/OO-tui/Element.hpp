@@ -6,20 +6,20 @@
 class Element: public Renderable
 {
 protected:
-    bool visible;
+    char character;
     Vector2 position;
     Color color;
 
 public:
     Element(Vector2 position);
-    Element(Vector2 position, bool visible);
+    Element(Vector2 position, char character);
     Element(Vector2 position, Color color);
-    Element(Vector2 position, bool visible, Color color);
+    Element(Vector2 position, char character, Color color);
     virtual ~Element();
     virtual void Render() = 0;
 
-    void SetVisible(bool visible);
-    bool IsVisible();
+    void SetCharacter(char character);
+    char GetCharacter();
     void SetPosition(int x, int y);
     void SetPosition(Vector2 position);
     Vector2 GetPosition();

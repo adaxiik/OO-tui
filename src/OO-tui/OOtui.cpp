@@ -25,6 +25,7 @@ void OOtui::Destroy()
     {
         delete[] this->buffer;
         delete instance;
+        system("tput reset"); // reset terminal
         instance = nullptr;
     }
 }
@@ -35,7 +36,9 @@ void OOtui::Init(int width, int height)
     this->height = height;
     this->buffer = new Pixel[width * height];
     this->startTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() / 1000.0;
-    system("stty -icanon -echo");
+    system("stty -icanon -echo"); // disable terminal echo
+    system("tput civis"); // hide cursor
+    setvbuf(stdout, NULL, _IOFBF, 8*width*height); // enable stdout buffering
 }
 
 void OOtui::Render()
@@ -48,7 +51,7 @@ void OOtui::Render()
     {
         for (int x = 0; x < this->width; x++)
         {
-            auto p = this->buffer[y * this->width + x];
+            auto& p = this->buffer[y * this->width + x];
             std::printf("\033[3%dm%c", p.color, p.character);
         }
         std::printf("\n");

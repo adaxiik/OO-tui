@@ -4,28 +4,28 @@
 Element::Element(Vector2 position)
 {
     this->position = position;
-    this->visible = true;
+    this->character = '#';
     this->color = Color::WHITE;
 }
 
-Element::Element(Vector2 position, bool visible)
+Element::Element(Vector2 position, char character)
 {
     this->position = position;
-    this->visible = visible;
+    this->character = character;
     this->color = Color::WHITE;
 }
 
 Element::Element(Vector2 position, Color color)
 {
     this->position = position;
-    this->visible = true;
+    this->character = '#';
     this->color = color;
 }
 
-Element::Element(Vector2 position, bool visible, Color color)
+Element::Element(Vector2 position, char character, Color color)
 {
     this->position = position;
-    this->visible = visible;
+    this->character = character;
     this->color = color;
 }
 
@@ -33,9 +33,9 @@ Element::~Element()
 {
 }
 
-void Element::SetVisible(bool visible)
+void Element::SetCharacter(char character)
 {
-    this->visible = visible;
+    this->character = character;
 }
 
 void Element::SetPosition(int x, int y)
@@ -64,7 +64,7 @@ Vector2 Element::GetPosition()
     return this->position;
 }
 
-bool Element::IsVisible()
+char Element::GetCharacter()
 {
-    return this->visible;
+    return this->character;
 }
