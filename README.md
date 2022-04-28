@@ -6,6 +6,7 @@ I was supposed to do a OOP semester project, but at the same time I didn't want 
 # Features
 - Non-blocking keyboard input
 - 8 Standardized colors
+- More than 60fps butter smooth (haha.. but really.. got up to 500 fps in [alacritty](https://github.com/alacritty/alacritty) terminal )
 
 # Notes 
 - It may not work on some terminals (that are too slow, or cant display colors)

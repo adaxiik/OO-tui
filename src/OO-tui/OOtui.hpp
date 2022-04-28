@@ -38,18 +38,40 @@ private:
     OOtui();
     Pixel *buffer;
     int width, height;
+
     bool keys[256];
+
     double startTime;
     double frameTime;
+    int targetFPS;
 
     std::vector<Renderable *> renderQueue;
 
 public:
-    void Render();
-    void Init(int width, int height);
     static OOtui &GetInstance();
+
+    /**
+     * @brief Must be called before any other OOtui function.
+     * 
+     * @param width 
+     * @param height 
+     * @param highFPSmode 
+     * 
+     */
+    void Init(int width, int height);
+    
+    /**
+     * @brief Must be called at the end of the program to clean up buffers
+     * 
+     */
     void Destroy();
 
+    /**
+     * @brief Render current frame queue to screen
+     * 
+     */
+    void Render();
+    
     /**
      * @brief Check if a key is pressed
      * 
@@ -105,6 +127,14 @@ public:
      * @return Frame time in seconds 
      */
     double GetFrameTime() const;
+
+    /**
+     * @brief Set the target FPS
+     * 
+     * @param fps 
+     */
+    void SetTargetFPS(int fps);
+
 
     int GetWidth() const;
     int GetHeight() const;

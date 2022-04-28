@@ -43,7 +43,7 @@ std::string Text::GetText() const
 void Text::Render() const
 {
     OOtui &tui = OOtui::GetInstance();
-    for (int i = 0; i < this->text.length(); i++)
+    for (int i = 0; i < (int)this->text.length(); i++)
         for (int y = 0; y < 8; y++)
             for (int x = 0; x < 8; x++)
                 if (font8x8[(int)this->text[i]][y] & (1 << x))

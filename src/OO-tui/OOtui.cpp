@@ -4,6 +4,7 @@
 #include <cstring>
 #include <unistd.h>
 #include <chrono>
+#include <iostream>
 
 OOtui *OOtui::instance = nullptr;
 OOtui::OOtui()
@@ -25,11 +26,12 @@ void OOtui::Destroy()
         delete instance;
         std::printf("\033[?25h"); // re-enable cursor
         std::printf("\033[0;0H\033[2J"); // clear screen
+        std::fflush(stdout);
         instance = nullptr;
     }
 }
 
-void OOtui::Init(int width, int height)
+void OOtui::Init(int width, int height) 
 {
     this->width = width;
     this->height = height;
@@ -37,35 +39,53 @@ void OOtui::Init(int width, int height)
     this->startTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() / 1000.0;
     std::printf("\033[?25l"); // hide cursor
     std::printf("\033[0;0H\033[2J"); // clear screen
+    std::fflush(stdout);
     system("stty -icanon -echo"); // disable terminal echo
 
-    setvbuf(stdout, NULL, _IOFBF, 8*width*height); // enable stdout buffering
+
+    this->targetFPS = 1000;
+
+    setvbuf(stdout, NULL, _IONBF, 0); // disable stdout buffering
+    
 }
 
 void OOtui::Render()
 {
-    // calculate frame time
-    static double lastTime = 0;
-    double currentTime = this->GetTime();
-    this->frameTime = currentTime - lastTime;
-    lastTime = currentTime;
+    double startTime = this->GetTime();
+
 
 
     for (auto &&r : this->renderQueue)
         r->Render();
     this->renderQueue.clear();
 
-    std::printf("\033[0;0H\033"); // move cursor to top left
+    //std::printf("\033[0;0H\033"); // move cursor to top left
+    //////std::cout << sizeof("\033[0;0H\033")<<std::endl;
+
+    fwrite("\033[0;0H\033", 1, 8, stdout); // move cursor to top left
+    char row[width*6];
     for (int y = 0; y < this->height; y++)
     {
         for (int x = 0; x < this->width; x++)
         {
             auto& p = this->buffer[y * this->width + x];
-            std::printf("\033[3%dm%c", p.color, p.character);
+            //fwrite("\033[3%dm%c", 1, 8, stdout);
+            std::string b = "\033[3" + std::to_string(p.color) + "m" + p.character; 
+            for (size_t i = 0; i < 6; i++)
+                row[x * 6 + i] = b[i];
+
+
+
         }
-        std::printf("\n");
+        fwrite(row, width*6, 1, stdout);
+        fputc('\n', stdout);
+        usleep(100); //wait 100us to finish line
     }
-    std::fflush(stdout);
+
+    static int sleepTime = std::max(0, (int)((1.0 / (double)this->targetFPS - (GetTime() - startTime))*1000000));
+    usleep(sleepTime);
+
+    this->frameTime = GetTime() - startTime;
 
 }
 
@@ -130,4 +150,9 @@ void OOtui::AddToRenderQueue(Renderable *r)
 double OOtui::GetFrameTime() const
 {
     return this->frameTime;
+}
+
+void OOtui::SetTargetFPS(int fps)
+{
+    this->targetFPS = fps;
 }
