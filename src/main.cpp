@@ -8,13 +8,13 @@
 #include "OO-tui/Rect.hpp"
 #include "OO-tui/FilledRect.hpp"
 #include <cmath>
-#define WIDTH 80 * 2
-#define HEIGHT 30 * 2
+#define WIDTH 80 
+#define HEIGHT 30 
 int main(int argc, char const *argv[])
 {
     OOtui &tui = OOtui::GetInstance();
     tui.Init(WIDTH, HEIGHT);
-    tui.SetTargetFPS(15);
+    //tui.SetTargetFPS(15);
     while (!tui.shouldExit())
     {
 

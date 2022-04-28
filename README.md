@@ -6,7 +6,7 @@ I was supposed to do a OOP semester project, but at the same time I didn't want 
 # Features
 - Non-blocking keyboard input
 - 8 Standardized colors
-- Up to 60fps (tested on [alacritty](https://github.com/alacritty/alacritty) terminal)
+- Up to 144fps (tested on [alacritty](https://github.com/alacritty/alacritty) terminal. 80x30)
 
 # Notes 
 - It may not work on some terminals (that are too slow, or cant display colors)
