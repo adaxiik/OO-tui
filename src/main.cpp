@@ -25,8 +25,9 @@ int main(int argc, char const *argv[])
         Circle c2({xpos + 5, ypos}, 5, Color::GREEN);
         tui.AddToRenderQueue(&c2);
 
-        Label l("Hello World!", {10, 10},Color::MAGENTA);
-        tui.AddToRenderQueue(&l);
+        std::string fps = std::to_string(1/tui.GetFrameTime());
+        Label fpsLabel("FPS: " + fps, {0, 0}, Color::MAGENTA);
+        tui.AddToRenderQueue(&fpsLabel);
 
         tui.ReadKeys();
         tui.Render();

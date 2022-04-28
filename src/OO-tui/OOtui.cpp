@@ -93,7 +93,7 @@ void OOtui::ReadKeys()
     int numRead = read(0, buf, 4);
     for (int i = 0; i < numRead; i++)
     {
-        keys[buf[i]] = true;
+        keys[(int)buf[i]] = true;
     }
 }
 

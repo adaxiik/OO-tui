@@ -13,9 +13,9 @@ Label::Label(std::string text, Vector2 position, Color color) : Element(position
 
 void Label::Render()
 {
-    for (int i = 0; i < this->text.length(); i++)
+    for (size_t i = 0; i < this->text.length(); i++)
     {
-        OOtui::GetInstance().PutPixel({this->position.x + i, this->position.y}, {this->text[i], this->color});
+        OOtui::GetInstance().PutPixel({this->position.x + (int)i, this->position.y}, {this->text[i], this->color});
     }
 }
 

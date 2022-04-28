@@ -6,7 +6,8 @@ set(CMAKE_CXX_STANDARD 11)
 file(GLOB_RECURSE SRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 #set(SRC_FILES src/main.cpp src/OO-tui/OOtui.cpp src/OO-tui/Clear.cpp src/OO-tui/Circle.cpp src/OO-tui/Element.cpp)
 #add -fsanitize=address to the compiler debug flags
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -Wall")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -flto -march=native")
 
 add_executable(OO-tui ${SRC_FILES})
 
