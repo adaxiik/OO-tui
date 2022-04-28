@@ -15,4 +15,4 @@ I was supposed to do a OOP semester project, but at the same time I didn't want 
 
 # Example
 
-![Circles](examples/circles.gif)
+![TextAnimated](examples/example1.gif)

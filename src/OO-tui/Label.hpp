@@ -2,6 +2,11 @@
 #include <string>
 #include "Element.hpp"
 
+/**
+ * @brief Label class for rendering text
+ * @sa Text
+ * 
+ */
 class Label : public Element
 {
 private:

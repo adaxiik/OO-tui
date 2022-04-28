@@ -24,6 +24,6 @@ void Circle::Render() const
     for (int y = -radius; y <= radius; y++)
         for (int x = -radius; x <= radius; x++)
             if (x * x + y * y <= radius * radius)
-                OOtui::GetInstance().PutPixel({x + position.x, y + position.y}, {this->character, this->color});
+                OOtui::GetInstance().PutPixel({x + position.x, y + position.y}, {character, color});
 
 }

@@ -4,11 +4,16 @@
 #include "OO-tui/Clear.hpp"
 #include "OO-tui/Circle.hpp"
 #include "OO-tui/Label.hpp"
+#include "OO-tui/Text.hpp"
+#include "OO-tui/Rect.hpp"
+#include "OO-tui/FilledRect.hpp"
 #include <cmath>
+#define WIDTH 80
+#define HEIGHT 30
 int main(int argc, char const *argv[])
 {
     OOtui &tui = OOtui::GetInstance();
-    tui.Init(50, 30);
+    tui.Init(WIDTH, HEIGHT);
 
     while (!tui.shouldExit())
     {
@@ -20,14 +25,24 @@ int main(int argc, char const *argv[])
         Circle c1({xpos, ypos}, 5, Color::RED);
         tui.AddToRenderQueue(&c1);
 
-        ypos = (int)(std::sin(-tui.GetTime() * 2) * 5) + 10;
-        xpos = (int)(std::cos(-tui.GetTime() * 3) * 10) + 20;
-        Circle c2({xpos + 5, ypos}, 5, Color::GREEN);
-        tui.AddToRenderQueue(&c2);
+
+        Rect r1({0, 0}, {WIDTH, HEIGHT}, Color::BLUE);
+        tui.AddToRenderQueue(&r1);
+
+        FilledRect r2({10, 10}, {5, 5}, Color::CYAN);
+        tui.AddToRenderQueue(&r2);
+
 
         std::string fps = std::to_string(1/tui.GetFrameTime());
         Label fpsLabel("FPS: " + fps, {0, 0}, Color::MAGENTA);
         tui.AddToRenderQueue(&fpsLabel);
+
+        //ypos = (int)(std::sin(-tui.GetTime() * 2) * 5) + 10;
+        xpos = (int)(std::cos(-tui.GetTime() * 3) * 10) + 20;
+
+        Text t1("OO-tui", {xpos, 20}, 'O', Color::YELLOW);
+        tui.AddToRenderQueue(&t1);
+
 
         tui.ReadKeys();
         tui.Render();
