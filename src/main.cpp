@@ -7,6 +7,7 @@
 #include "OO-tui/Text.hpp"
 #include "OO-tui/Rect.hpp"
 #include "OO-tui/FilledRect.hpp"
+#include "OO-tui/Line.hpp"
 #include <cmath>
 #define WIDTH 80 
 #define HEIGHT 30 
@@ -22,7 +23,7 @@ int main(int argc, char const *argv[])
         tui.AddToRenderQueue(&c);
         int ypos = (int)(std::sin(tui.GetTime() * 2) * 5) + 10;
         int xpos = (int)(std::cos(tui.GetTime() * 2) * 10) + 20;
-        Circle c1({xpos, ypos+30}, 5, Color::RED);
+        Circle c1({xpos, ypos}, 5, Color::RED);
         tui.AddToRenderQueue(&c1);
 
 
@@ -43,6 +44,12 @@ int main(int argc, char const *argv[])
         Text t1("OO-tui", {xpos, 20}, 'O', Color::YELLOW);
         tui.AddToRenderQueue(&t1);
 
+        Vector2 center = {WIDTH/2, HEIGHT/2};
+        // spin line around center
+        xpos = (int)(std::cos(tui.GetTime() * 2) * 20) + center.x;
+        ypos = (int)(std::sin(tui.GetTime() * 2) * 10) + center.y;
+        Line l1({center.x, center.y}, {xpos, ypos}, '*', Color::GREEN);
+        tui.AddToRenderQueue(&l1);
 
         tui.ReadKeys();
         tui.Render();

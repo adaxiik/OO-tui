@@ -71,10 +71,6 @@ void OOtui::Render()
         r->Render();
     this->renderQueue.clear();
 
-    //std::printf("\033[0;0H\033"); // move cursor to top left
-    //////std::cout << sizeof("\033[0;0H\033")<<std::endl;
-
-    char row[width*6];
     for (int y = 0; y < this->height; y++)
     {
         for (int x = 0; x < this->width; x++)
