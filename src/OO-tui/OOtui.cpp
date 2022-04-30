@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <chrono>
 #include <iostream>
+#include <ncurses.h>
 
 OOtui *OOtui::instance = nullptr;
 OOtui::OOtui()
@@ -24,9 +25,7 @@ void OOtui::Destroy()
     {
         delete[] this->buffer;
         delete instance;
-        std::printf("\033[?25h"); // re-enable cursor
-        std::printf("\033[0;0H\033[2J"); // clear screen
-        std::fflush(stdout);
+        endwin();
         instance = nullptr;
     }
 }
@@ -37,23 +36,35 @@ void OOtui::Init(int width, int height)
     this->height = height;
     this->buffer = new Pixel[width * height];
     this->startTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() / 1000.0;
-    std::printf("\033[?25l"); // hide cursor
-    std::printf("\033[0;0H\033[2J"); // clear screen
-    std::fflush(stdout);
-    system("stty -icanon -echo"); // disable terminal echo
-
-
     this->targetFPS = 1000;
 
-    setvbuf(stdout, NULL, _IONBF, 0); // disable stdout buffering
+    // init colors
     
+    
+    initscr();
+    noecho();
+    curs_set(0);
+    clear(); 
+    refresh();
+
+    #define COLOR_DEFAULT -1
+    start_color();
+    use_default_colors();
+    init_pair(Color::BLACK, COLOR_BLACK, COLOR_DEFAULT);
+    init_pair(Color::RED, COLOR_RED, COLOR_DEFAULT);
+    init_pair(Color::GREEN, COLOR_GREEN, COLOR_DEFAULT);
+    init_pair(Color::YELLOW, COLOR_YELLOW, COLOR_DEFAULT);
+    init_pair(Color::BLUE, COLOR_BLUE, COLOR_DEFAULT);
+    init_pair(Color::MAGENTA, COLOR_MAGENTA, COLOR_DEFAULT);
+    init_pair(Color::CYAN, COLOR_CYAN, COLOR_DEFAULT);
+    init_pair(Color::WHITE, COLOR_WHITE, COLOR_DEFAULT);
+
+
 }
 
 void OOtui::Render()
 {
     double startTime = this->GetTime();
-
-
 
     for (auto &&r : this->renderQueue)
         r->Render();
@@ -62,26 +73,20 @@ void OOtui::Render()
     //std::printf("\033[0;0H\033"); // move cursor to top left
     //////std::cout << sizeof("\033[0;0H\033")<<std::endl;
 
-    fwrite("\033[0;0H\033", 1, 8, stdout); // move cursor to top left
     char row[width*6];
     for (int y = 0; y < this->height; y++)
     {
         for (int x = 0; x < this->width; x++)
         {
             auto& p = this->buffer[y * this->width + x];
-            //fwrite("\033[3%dm%c", 1, 8, stdout);
-            std::string b = "\033[3" + std::to_string(p.color) + "m" + p.character; 
-            for (size_t i = 0; i < 6; i++)
-                row[x * 6 + i] = b[i];
-
-
+            attron(COLOR_PAIR(p.color));
+            mvaddch(y, x, p.character);
+            attroff(COLOR_PAIR(p.color));
+            
 
         }
-        fwrite(row, width*6, 1, stdout);
-        fputc('\n', stdout);
-        usleep(100); //wait 100us to finish line
     }
-
+    refresh();
     static int sleepTime = std::max(0, (int)((1.0 / (double)this->targetFPS - (GetTime() - startTime))*1000000));
     usleep(sleepTime);
 

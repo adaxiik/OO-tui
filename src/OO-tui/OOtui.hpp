@@ -38,7 +38,7 @@ private:
     OOtui();
     Pixel *buffer;
     int width, height;
-
+    bool hasColors;
     bool keys[256];
 
     double startTime;
