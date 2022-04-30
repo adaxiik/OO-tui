@@ -67,10 +67,6 @@ void OOtui::Render()
 {
     double startTime = this->GetTime();
 
-    for (auto &&r : this->renderQueue)
-        r->Render();
-    this->renderQueue.clear();
-
     for (int y = 0; y < this->height; y++)
     {
         for (int x = 0; x < this->width; x++)
@@ -111,7 +107,9 @@ void OOtui::ReadKeys()
 {
     std::memset(keys, 0, 256);
     int ch = getch();
-    keys[ch] = true;
+    if(ch <256 && ch >= 0)
+        keys[ch] = true;
+    
     
 }
 
@@ -138,11 +136,6 @@ int OOtui::GetWidth() const
 int OOtui::GetHeight() const
 {
     return this->height;
-}
-
-void OOtui::AddToRenderQueue(Renderable *r)
-{
-    this->renderQueue.push_back(r);
 }
 
 double OOtui::GetFrameTime() const

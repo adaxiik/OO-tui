@@ -45,8 +45,6 @@ private:
     double frameTime;
     int targetFPS;
 
-    std::vector<Renderable *> renderQueue;
-
 public:
     static OOtui &GetInstance();
 
@@ -112,14 +110,6 @@ public:
      * 
      */
     bool PutPixel(Vector2 position, Pixel pixel);
-
-
-    /**
-     * @brief Add a Renderable to the render queue
-     * 
-     * @param r Renderable to add
-     */
-    void AddToRenderQueue(Renderable *r);
 
     /**
      * @brief Return time in seconds from last Render() call

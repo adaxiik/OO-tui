@@ -11,51 +11,42 @@
 #include <cmath>
 #define WIDTH 80 
 #define HEIGHT 30 
+
+
+
+
 int main(int argc, char const *argv[])
 {
     OOtui &tui = OOtui::GetInstance();
     tui.Init(WIDTH, HEIGHT);
     tui.SetTargetFPS(30);
+
     while (!tui.shouldExit())
     {
+        Clear().Render();
 
-        Clear c;
-        tui.AddToRenderQueue(&c);
         int ypos = (int)(std::sin(tui.GetTime() * 2) * 5) + 10;
         int xpos = (int)(std::cos(tui.GetTime() * 2) * 10) + 20;
-        Circle c1({xpos, ypos}, 5, Color::RED);
-        tui.AddToRenderQueue(&c1);
+        Circle ({xpos, ypos}, 5, Color::RED).Render();
+
+        Rect({0, 0}, {WIDTH, HEIGHT}, Color::BLUE).Render();
 
 
-        Rect r1({0, 0}, {WIDTH, HEIGHT}, Color::BLUE);
-        tui.AddToRenderQueue(&r1);
-
-        FilledRect r2({10, 10}, {5, 5}, Color::CYAN);
-        tui.AddToRenderQueue(&r2);
+        FilledRect({10, 10}, {5, 5}, Color::CYAN).Render();
 
 
         std::string fps = std::to_string(1/tui.GetFrameTime());
-        Label fpsLabel("FPS: " + fps, {0, 0}, Color::MAGENTA);
-        tui.AddToRenderQueue(&fpsLabel);
+        Label("FPS: " + fps, {0, 0}, Color::MAGENTA).Render();
+
 
         //ypos = (int)(std::sin(-tui.GetTime() * 2) * 5) + 10;
         xpos = (int)(std::cos(-tui.GetTime() * 3) * 10) + 20;
 
-        Text t1("OO-tui", {xpos, 20}, 'O', Color::YELLOW);
-        tui.AddToRenderQueue(&t1);
+        Text ("OO-tui", {xpos, 20}, 'O', Color::YELLOW).Render();
 
-        Vector2 center = {WIDTH/2, HEIGHT/2};
-        // spin line around center
-        xpos = (int)(std::cos(tui.GetTime() * 2) * 20) + center.x;
-        ypos = (int)(std::sin(tui.GetTime() * 2) * 10) + center.y;
-        Line l1({center.x, center.y}, {xpos, ypos}, '*', Color::GREEN);
-        tui.AddToRenderQueue(&l1);
 
-        tui.ReadKeys();
         tui.Render();
-
-        //usleep(66000); // 15 fps
-        //usleep(16000); // 60 fps
+        tui.ReadKeys();
     }
     tui.Destroy();
 }
