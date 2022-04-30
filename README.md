@@ -20,3 +20,4 @@ I was supposed to do a OOP semester project, but at the same time I didn't want 
 # Example
 
 ![TextAnimated](examples/example1.gif)
+![Cube30fps](examples/cube.gif)
