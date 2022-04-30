@@ -44,6 +44,7 @@ void OOtui::Init(int width, int height)
     initscr();
     noecho();
     curs_set(0);
+    nodelay(stdscr, true);
     clear(); 
     refresh();
 
@@ -113,13 +114,9 @@ bool OOtui::shouldExit() const
 void OOtui::ReadKeys()
 {
     std::memset(keys, 0, 256);
-    char buf[4] = {0};
-    fcntl(0, F_SETFL, fcntl(0, F_GETFL) | O_NONBLOCK);
-    int numRead = read(0, buf, 4);
-    for (int i = 0; i < numRead; i++)
-    {
-        keys[(int)buf[i]] = true;
-    }
+    int ch = getch();
+    keys[ch] = true;
+    
 }
 
 double OOtui::GetTime() const
