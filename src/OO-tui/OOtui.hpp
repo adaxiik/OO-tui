@@ -53,7 +53,6 @@ public:
      * 
      * @param width 
      * @param height 
-     * @param highFPSmode 
      * 
      */
     void Init(int width, int height);
