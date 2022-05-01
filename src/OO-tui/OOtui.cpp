@@ -39,8 +39,6 @@ void OOtui::Init(int width, int height)
     this->targetFPS = 1000;
 
     // init colors
-    
-    
     initscr();
     noecho();
     curs_set(0);
@@ -75,8 +73,6 @@ void OOtui::Render()
             attron(COLOR_PAIR(p.color));
             mvaddch(y, x, p.character);
             attroff(COLOR_PAIR(p.color));
-            
-
         }
     }
     refresh();
@@ -84,7 +80,6 @@ void OOtui::Render()
     usleep(sleepTime);
 
     this->frameTime = GetTime() - startTime;
-
 }
 
 OOtui::~OOtui()
