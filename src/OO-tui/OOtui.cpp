@@ -42,7 +42,6 @@ void OOtui::Init(int width, int height)
     std::fflush(stdout);
     system("stty -icanon -echo"); // disable terminal echo
 
-
     this->targetFPS = 1000;
 
     setvbuf(stdout, NULL, _IONBF, 0); // disable stdout buffering
