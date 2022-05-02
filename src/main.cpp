@@ -22,7 +22,7 @@ int main(int argc, char const *argv[])
         tui.AddToRenderQueue(&c);
         int ypos = (int)(std::sin(tui.GetTime() * 2) * 5) + 10;
         int xpos = (int)(std::cos(tui.GetTime() * 2) * 10) + 20;
-        Circle c1({xpos, ypos+30}, 5, Color::RED);
+        Circle c1({xpos, ypos}, 5, Color::RED);
         tui.AddToRenderQueue(&c1);
 
 
