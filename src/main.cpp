@@ -25,10 +25,10 @@ int main(int argc, char const *argv[])
     {
         Clear().Render();
 
-        int ypos = (int)(std::sin(tui.GetTime() * 2) * 5) + 10;
-        int xpos = (int)(std::cos(tui.GetTime() * 2) * 10) + 20;
+        int ypos = (int)(std::sin(tui.GetTime() * 2) * 8) + 10;
+        int xpos = (int)(std::cos(tui.GetTime() * 2) * 16) + 20;
         Circle ({xpos, ypos}, 5, Color::RED).Render();
-
+        Line({xpos, ypos}, {18, 9}, Color::GREEN).Render();
         Rect({0, 0}, {WIDTH, HEIGHT}, Color::BLUE).Render();
 
 
