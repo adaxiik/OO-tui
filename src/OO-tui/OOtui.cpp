@@ -53,14 +53,9 @@ void OOtui::Render()
 {
     double startTime = this->GetTime();
 
-
-
     for (auto &&r : this->renderQueue)
         r->Render();
     this->renderQueue.clear();
-
-    //std::printf("\033[0;0H\033"); // move cursor to top left
-    //////std::cout << sizeof("\033[0;0H\033")<<std::endl;
 
     fwrite("\033[0;0H\033", 1, 8, stdout); // move cursor to top left
     char row[width*6];
@@ -69,12 +64,9 @@ void OOtui::Render()
         for (int x = 0; x < this->width; x++)
         {
             auto& p = this->buffer[y * this->width + x];
-            //fwrite("\033[3%dm%c", 1, 8, stdout);
             std::string b = "\033[3" + std::to_string(p.color) + "m" + p.character; 
             for (size_t i = 0; i < 6; i++)
                 row[x * 6 + i] = b[i];
-
-
 
         }
         fwrite(row, width*6, 1, stdout);
@@ -119,7 +111,6 @@ void OOtui::ReadKeys()
 
 double OOtui::GetTime() const
 {
-    //return time in seconds
     return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() / 1000.0 - this->startTime;    
 }
 
