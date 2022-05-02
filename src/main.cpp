@@ -7,6 +7,9 @@
 #include "OO-tui/Text.hpp"
 #include "OO-tui/Rect.hpp"
 #include "OO-tui/FilledRect.hpp"
+#include "OO-tui/Line.hpp"
+
+//sin cos
 #include <cmath>
 #define WIDTH 80 
 #define HEIGHT 30 
@@ -20,10 +23,12 @@ int main(int argc, char const *argv[])
 
         Clear c;
         tui.AddToRenderQueue(&c);
-        int ypos = (int)(std::sin(tui.GetTime() * 2) * 5) + 10;
-        int xpos = (int)(std::cos(tui.GetTime() * 2) * 10) + 20;
+        int ypos = (int)(std::sin(tui.GetTime() * 2) * 8) + 10;
+        int xpos = (int)(std::cos(tui.GetTime() * 2) * 16) + 20;
         Circle c1({xpos, ypos}, 5, Color::RED);
         tui.AddToRenderQueue(&c1);
+        Line l({xpos, ypos}, {18, 9}, Color::GREEN);
+        tui.AddToRenderQueue(&l);
 
 
         Rect r1({0, 0}, {WIDTH, HEIGHT}, Color::BLUE);
@@ -47,8 +52,6 @@ int main(int argc, char const *argv[])
         tui.ReadKeys();
         tui.Render();
 
-        //usleep(66000); // 15 fps
-        //usleep(16000); // 60 fps
     }
     tui.Destroy();
 }
