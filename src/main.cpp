@@ -19,7 +19,7 @@ int main(int argc, char const *argv[])
 {
     OOtui &tui = OOtui::GetInstance();
     tui.Init(WIDTH, HEIGHT);
-    //tui.SetTargetFPS(15);
+    tui.SetTargetFPS(15);
 
     while (!tui.shouldExit())
     {
