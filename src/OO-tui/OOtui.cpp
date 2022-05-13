@@ -37,6 +37,7 @@ void OOtui::Init(int width, int height)
     this->buffer = new Pixel[width * height];
     this->startTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() / 1000.0;
     this->targetFPS = 1000;
+    this->fps = 0;
 
     // init colors
     initscr();
@@ -63,7 +64,16 @@ void OOtui::Init(int width, int height)
 
 void OOtui::Render()
 {
+    static double lastTime = 0;
+    static int frames = 0;
     double startTime = this->GetTime();
+
+    if(startTime - lastTime > 1)
+    {
+        lastTime = startTime;
+        this->fps = frames;
+        frames = 0;
+    }
 
     for (int y = 0; y < this->height; y++)
     {
@@ -78,8 +88,7 @@ void OOtui::Render()
     refresh();
     static int sleepTime = std::max(0, (int)((1.0 / (double)this->targetFPS - (GetTime() - startTime))*1000000));
     usleep(sleepTime);
-
-    this->frameTime = GetTime() - startTime;
+    frames++;
 }
 
 OOtui::~OOtui()
@@ -114,6 +123,11 @@ double OOtui::GetTime() const
     return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() / 1000.0 - this->startTime;    
 }
 
+int OOtui::GetFPS() const
+{
+    return this->fps;
+}
+
 bool OOtui::PutPixel(const Vector2 position,const Pixel pixel)
 {
     if (position.x < 0 || position.x >= this->width || position.y < 0 || position.y >= this->height)
@@ -135,7 +149,7 @@ int OOtui::GetHeight() const
 
 double OOtui::GetFrameTime() const
 {
-    return this->frameTime;
+    return 1.0 / this->targetFPS;
 }
 
 void OOtui::SetTargetFPS(int fps)

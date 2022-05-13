@@ -19,7 +19,7 @@ int main(int argc, char const *argv[])
 {
     OOtui &tui = OOtui::GetInstance();
     tui.Init(WIDTH, HEIGHT);
-    tui.SetTargetFPS(15);
+    //tui.SetTargetFPS(15);
 
     while (!tui.shouldExit())
     {
@@ -35,7 +35,7 @@ int main(int argc, char const *argv[])
         FilledRect({10, 10}, {5, 5}, Color::CYAN).Render();
 
 
-        std::string fps = std::to_string(1/tui.GetFrameTime());
+        std::string fps = std::to_string(tui.GetFPS());
         Label("FPS: " + fps, {0, 0}, Color::MAGENTA).Render();
 
 

@@ -42,7 +42,7 @@ private:
     bool keys[256];
 
     double startTime;
-    double frameTime;
+    int fps;
     int targetFPS;
 
 public:
@@ -116,6 +116,13 @@ public:
      * @return Frame time in seconds 
      */
     double GetFrameTime() const;
+
+    /**
+     * @brief Return number of frames per second
+     * 
+     * @return int Number of frames per second
+     */
+    int GetFPS() const;
 
     /**
      * @brief Set the target FPS
